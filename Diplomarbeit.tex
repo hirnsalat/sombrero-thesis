@@ -1,0 +1,190 @@
+\documentclass[english, a4paper, 12pt]{report}
+
+%\usepackage[english]{babel}					%Deutsche Silbentrennung etc.
+\usepackage[USenglish]{babel}
+\usepackage[latin1]{inputenc}	%Umlaute in .tex Files normal schreibbar
+\usepackage{helvet}						%Helvetic als Schriftart
+\usepackage{courier}					%Courier als Schriftart für Listings
+\usepackage{fancyhdr}					%Kopf- und Fußzeilen ändern
+\usepackage{a4}								%A4 Randeinstellungen
+\usepackage{makeidx}					%Indexkommandos
+\usepackage{listings}					%Für zeilennummerierte Listings mit Hintergrund
+\usepackage{color}						%Für grauen Hintergrund in Listings
+\usepackage{setspace}					%Größerer Zeilenabstand
+\usepackage{graphicx}					%Grafiken einbinden
+\usepackage{sectsty}					%Format der Überschriften umändern
+\usepackage{hyperref}
+%Darstellung des Glossars und Abkürzungsverzeichnisses einstellen
+\usepackage[style=altlist, hypertoc=true, hyper=true, number=none, acronym=true]{glossary}
+\setacronymnamefmt{gloshort}
+\makeacronym
+\makeglossary
+
+%Dokumentationen zu den Paketen finden sich im Installationsordner
+%(normalerweise C:\Programme\texmf) unter docs und dort auch im Unterverzeichnis latex.
+
+%Das Kompilieren des Dokuments benötigt bis zu 3 Durchläufe im alle Referenzen und
+%Literatureinträge korrekt einzubinden.
+
+
+%Definition des Aussehens der Listings
+\definecolor{listinggray}{gray}{1.0}
+\lstset{
+	language=Java,
+	frame=ltrb
+	backgroundcolor=\color{listinggray},
+	%basicstyle=\linespread{1.0}\ttfamily\small,
+	basicstyle=\linespread{1.0}\ttfamily\small,
+	commentstyle=\textit,
+	tabsize=2,
+	float=ph,
+	extendedchars,
+	breaklines,
+	prebreak={\space\hbox{\ensuremath\hookleftarrow}},,
+	numbers=left,
+	numberstyle=\small,
+	stringstyle=\textsl,
+	showstringspaces=false,
+	captionpos=b,
+	aboveskip=16pt
+}
+%Eigene Kommandos
+\newcommand{\zb}{z.B.\ }															 %z.B.
+\newcommand{\tm}{\texttrademark \ }										%TM - Zeichen
+\newcommand{\sk}[1]{\emph{siehe Kapitel \ref{#1}}}		%siehe Kapitel <Referenz>
+\newcommand{\lil}[1]{\emph{Listing \ref{#1}}}					%Listing <Referenz>
+\newcommand{\slil}[1]{\emph{siehe Listing \ref{#1}}}	%siehe Listing <Referenz>
+\newcommand{\pr}{$\rightarrow\ $}											%Pfeil nach rechts
+
+\graphicspath{{images/}}
+
+%Es soll ein Index für diese Diplomarbeit erzeugt werden
+\makeindex
+
+%Längen- und Absatzeinstellungen
+\parindent=0pt		%Kein Einrücken der ersten Zeile eines Absatzes
+\parskip=12pt			%12pt Abstand zwischen 2 Absätzen
+%\doublespacing 	 %Doppelter Zeilenabstand
+\onehalfspacing	  %Eineinhalbfacher Zeilenabstand
+
+\setlength{\headheight}{15pt}		%Kopfzeile vergrößern (wegen 12pt Schriftgröße)	
+\addtolength{\textwidth}{1.5cm}	%Rechten Rand verkleinern
+
+
+%--------------------------------------------------------------------------
+% Beginn Dokument
+%--------------------------------------------------------------------------
+
+
+\begin{document}
+	\sffamily											%Schriftart setzen
+	\allsectionsfont{\sffamily}		%Schrift für Überschrift setzen
+	
+	\input{title}									%Externe .tex Datei für Titel einbinden
+	\clearpage										%Neue Seite beginnen
+
+	\pagestyle{plain}							%Nur Fußzeile mit Seitennummer anzeigen lassen
+	\pagenumbering{roman}					%Römische Nummerierung vor der eigentlichen Diplomarbeit
+	\setcounter{page}{1}					%Bei 1 mit Nummerierung beginnen
+
+	\addcontentsline{toc}{chapter}{Eidesstattliche Erklärung}	%Erklärung händisch ins Inhaltsverzeichnis einfügen
+	\input{erklaerung}												%Externe .tex Datei für Erklärung einfügen
+	\clearpage																%Neue Seite beginnen
+	
+	
+	\addcontentsline{toc}{chapter}{Acknowledgements}
+	\input{acknowledgements}
+	\clearpage
+	
+	\addcontentsline{toc}{chapter}{Abstract}
+	\input{abstract}
+	\clearpage
+    \input{abstract-german}
+	\clearpage
+
+	\normalsize
+
+	\markright{INDEX}
+	\addcontentsline{toc}{chapter}{Index}
+	\tableofcontents
+	\clearpage
+		
+	%Kopfzeilen definieren
+	\pagestyle{fancyplain}
+
+	\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+	\renewcommand{\chaptermark}[1]{\markright{\thechapter\ #1}}
+	 \lhead[\fancyplain{}{\sffamily\sl\thepage}]{\fancyplain{}{\sffamily\sl\rightmark}}
+	 \rhead[\fancyplain{}{\sffamily\sl\leftmark}]{\fancyplain{}{\sffamily\sl\thepage}}
+	\cfoot{}
+
+	\pagenumbering{arabic}	%Seiten wieder normal nummerieren
+	\setcounter{page}{1}		%Bei 1 beginnen
+
+	%--------------------------------------------------------------------------
+	% Kapitel einfügen
+	%--------------------------------------------------------------------------
+
+    \input{chapter-allocation}
+	\clearpage
+    \input{introduction}
+	\clearpage
+    \input{project-progression}
+	\clearpage
+    \input{technologies}
+	\clearpage
+    \input{how-to-use}
+	\clearpage
+    \input{how-to-hack}
+	\clearpage
+    \input{ideas-for-the-future}
+	\clearpage
+    \input{conclusion}
+  \clearpage
+    
+  \addcontentsline{toc}{chapter}{Appendix}
+  \appendix
+  
+	\input{cv}
+	\clearpage
+  \input{diagrams}
+	\clearpage
+\glossary{ name=Individualsoftware, description={Individualsoftware zeichnet sich dadurch aus, dass sie nur für einen oder für wenige Anwendungsfälle geschaffen wird.}}
+\clearpage
+	
+	%--------------------------------------------------------------------------
+	% Anhang
+	%--------------------------------------------------------------------------
+
+	%\chapter[List of Figures]{}
+
+		\addcontentsline{toc}{chapter}{List of Figures}
+	\listoffigures
+	\clearpage
+	
+	%\addcontentsline{toc}{section}{List of Tables}
+	%\listoftables
+	%\clearpage
+
+	\addcontentsline{toc}{chapter}{List of Listings}
+	\lstlistoflistings
+	\clearpage
+	
+    	\addcontentsline{toc}{chapter}{Glossary}
+    \printglossary 
+	\clearpage
+
+
+  	\addcontentsline{toc}{chapter}{Index}
+  \printindex
+  \clearpage
+
+	%\bibliographystyle{alpha} 		 %Standardstyle
+	%\bibliographystyle{dinat}		 %Style und Layout nach DIN 1502
+	%\bibliography{tiger}					 %Literaturverzeichnis einfügen
+	
+	\clearpage
+	\addcontentsline{toc}{chapter}{Bibliography}
+	\input{bibliography}
+    \clearpage
+\end{document}

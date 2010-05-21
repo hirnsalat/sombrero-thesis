@@ -1,0 +1,68 @@
+\section{Calimero}
+``Calimero is a Java library for KNX access. It was first presented to the public at the KNX Scientific Conference 2005.
+From the beginning, Calimero was also available on SourceForge (versions 1.x). The packages included in this distribution provided a KNXnet/IP (EIBnet/IP) Discovery and Tunneling client, APDU (application layer protocol data unit) type translation services essential for runtime interworking, and a simple group address storage using XML together with a GUI based demo application. Ease of use was a key design goal. Client applications were enabled to communicate with KNX devices via a high level API hiding network protocol details. Since then, development on Calimero continued. When considering new functionality to be included, the question arose how these features could be added while maintaining both ease of use and a compact footprint. Therefore, a considerable reorganization effort was undertaken, leading to a redesign of the user API as well as internal architectural aspects. The new Calimero NG API, in the following only referred to as "Calimero", now supports additional connection protocols, management, property access, high level convenience methods for common tasks, and more.''\cite{auto.tuwien.ac.at:calimeropdf}
+
+
+In sombrero the ProcessCommunicator class is used to communicate with the KNX devices:
+\begin{lstlisting}[caption=Calimero ProcessCommunicator: Connection.scala,label=lst:calimero:connection]
+object Connection {
+  	var link: KNXNetworkLinkIP = null
+	var knxComm: ProcessCommunicator = null
+
+  	def createConnection(remoteHost:String) = {
+  		link = new KNXNetworkLinkIP(remoteHost, TPSettings.TP1)
+  		if(isConnected){
+  			knxComm = new ProcessCommunicatorImpl(link)
+  		}
+  	}
+
+   def isConnected = link match {
+     case null 	=> false
+     case x		=> link.isOpen
+   }
+
+   def destroyConnection = {
+     knxComm.detach
+     link.close
+   }
+}
+\end{lstlisting}
+
+The example below shows how messages are sent to and received from KNX devices in sombrero:
+\begin{lstlisting}[caption=Calimero write to device: Widget.scala,label=lst:calimero:write]
+abstract class KNXWidget[T](destAddress:String, name:String, mainNumber:Int, dptID:String){
+	System.out.println(destAddress);
+    val destDevice = new GroupAddress(destAddress)
+    val dptx: DPTXlator
+    val dp: Datapoint
+
+    .
+    .
+    .
+
+	def write (status: T) = if(Connection.isConnected) Connection.knxComm.write(dp, translate(status))
+	def write (status: String) = if(Connection.isConnected) Connection.knxComm.write(dp, status)
+}
+
+abstract class StateKNXWidget[T] (destAddress:String, name:String, mainNumber:Int, dptID:String)
+		 extends KNXWidget[T](destAddress, name, mainNumber, dptID){
+    override val dp = new StateDP(destDevice, name, mainNumber, dptID)
+
+    .
+    .
+    .
+
+	def getStatus (): Box[T] = {
+	  if(Connection.isConnected){
+		  Log.info(Connection.knxComm.toString)
+		  Full(translate(Connection.knxComm.read(dp)))
+	  }else
+         Empty
+	}
+}
+
+abstract class CommandKNXWidget [T] (destAddress:String, name:String, mainNumber:Int, dptID:String)
+		 extends KNXWidget[T] (destAddress, name, mainNumber, dptID){
+    override val dp = new CommandDP(destDevice, name, mainNumber, dptID)
+}
+\end{lstlisting} 

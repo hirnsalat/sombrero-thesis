@@ -1,0 +1,46 @@
+\chapter{Source Structure}
+
+\section{Packages}
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.80\linewidth]{packages.png}
+  %\input{packages}
+  \caption{package structure}
+  \label{fig:packages}
+  \end{figure}
+
+This picture probably needs explanation. The Scala world is located under \lstinline!src/main/scala/!. The templates of HTML world are in \lstinline!src/main/webapp/!, the widget resources are in \lstinline!src/main/resources/toserve/!.
+
+The user accesses Sombrero through a web browser. His request either matches one of the externally accessible templates or gets caught by URL rewriting of one of the location classes in the \lstinline!view! package, which will in turn redirect to a template, but supply it with special snippets. The most notable example for URL rewriting would be the room view. The user's request gets rewritten by the \lstinline!RoomLoc! class in \lstinline!view!, which redirects to \lstinline!room.html!, which in turn uses the \lstinline!roomview! snippet in \lstinline!RoomLoc!. \lstinline!RoomLoc! can then proceed, using information saved from the user's original request, to get widget information from the database interface that is the \lstinline!model! package and use it to construct the widgets that make up the room, using \lstinline!widget!'s various UI classes.
+
+Templates can use other snippets, which don't depend on the user's request, too, these are located in the \lstinline!snippet! package. The favorites bar would be an example of such a snippet. KNX widgets use the KNX network to query the device status upon creation and forward the user's actions to the actual devices. The database is used to save widget positions. The \lstinline!comet! package includes everything that pushes data back to the user. This includes data about status changes in the KNX network, which is translated into UI changes by the widgets. The util package includes utility functionality used by every package (drawing all the arrows would have seriously impacted the clarity of the image), most notably the \lstinline!JavaScriptHelper! and the \lstinline!WidgetList!. Finally, the \lstinline!bootstrap.liftweb! package includes a single class, \lstinline!Boot!, which holds the Lift configuration.
+
+
+\section{Database Model}
+
+Because we use Lift's Mapper ORM framewrok, all database tables are represented by classes and their companion objects. These classes reside in the \lstinline!model! package. Note that although every Mapper class needs a companion object, they have been omitted in the following diagram for better readability. Many-to-many-relations have been implemented as seperate entities.
+
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.80\linewidth]{model.png}
+  %\input{model}
+  \caption{database structure}
+  \label{fig:model}
+  \end{figure}
+
+The \lstinline!User! table uses Lift's \lstinline!MegaProtoUser! to save user data. This is used to save separate widget positions and favourites per user. The \lstinline!Room! table is used to model the room structure. A room without a parent is considered to be a root room. The \lstinline!Widget! table itself only saves the name of a widget, it is mostly used to provide a single endpoint for all the relations that should lead to the different \lstinline!WidgetData! subclasses. \lstinline!WidgetData! is the trait that needs to be mixed in by all the tables that represent different widget types, their companion objects must mix in \lstinline!WidgetMetaData!. \lstinline!Widget! also has some convenience methods that make it easier to implement new \lstinline!WidgetData! tables. The \lstinline!RoomlinkWidget! and \lstinline!KNXWidget! classes are the \lstinline!WidgetData! implementations for Roomlinks and KNX widgets, respectively. \lstinline!KNXGroup! provides a device to assign multiple KNX addresses to a single KNX widget. Finally, \lstinline!KNXRouter! is a table that contains only a single row, which contains the IP address of the KNX router used to access the local KNX network.
+
+\section{Widget Structure}
+To make the widget structure in Sombrero more understandable this diagram was created. It shows the inheritance between the widget Scala classes and it describes the interface between client JavaScript widgets and server Scala classes. All Scala classes are in the placed in Lift box and all JavaScript classes in the JavaScript box.
+
+The JavaScript widgets are all JQuery UI widgets and represent the three types of widgets, which are described in chapter User Mode. These widgets are configurable. This configuration is done by the Scala widget classes. Through this configuration the JQuery UI widgets can be adopted to a special kind of device widget like lamp. It's also possible to use this create a non KNX widget like the room link widget.  
+
+During the rendering process is all JQuery UI widget code provided by the Scala classes and on page load are all initialized. The Scala classes now communicate with the JQuery UI widgets through AJAX and Comet. To ease the interface between JavaScript and Scala the class JavaScriptHelper was build. 
+  \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.80\linewidth]{widgets.png}
+  %\input{widgets}
+  \caption{widget structure}
+  \label{fig:widgets}
+  \end{figure}

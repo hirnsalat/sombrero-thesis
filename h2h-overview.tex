@@ -1,0 +1,13 @@
+\section{Overview}
+
+The most obvious, and thus best supported and easiest change one would probably make to Sombrero is the addition of widgets. Even this task, however, can greatly vary in difficulty and knowledge requirements.
+
+The easiest task is to add KNX support for new devices using our unary, binary or analog widgets. The only thing needed to accomplish this is knowledge of Scala and Calimero, and of course of the KNX device you wish to support. On the represantation side, you just have to supply your own images or reuse ours. It is even easier to specialize our KNX widgets to specific models of devices, as you can use our code as a base.
+
+If you want to add a unique control scheme to your widget, it gets more difficult as you need to script the JQuery representation of your widget and take care of communication between client and server.
+
+To save data other than the KNX addresses, you need to create a new database table. This is basically the same as constructing any Lift Mapper class.
+
+These are the three types of additions discussed in this chapter. If you want to do more than that, for example add your own site, there's no way for us to write a general guide, but it is recommended to take a close look at Lift and JQuery and investigate our templates with similar purpose.
+
+For information on package and class structure, consult Appendix B: Source Structure.

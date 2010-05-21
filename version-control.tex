@@ -1,0 +1,25 @@
+\section{Version Control}
+
+Through all stages of development, version control systems have been used to keep the code up to date across both developer's computers. In the beginning, we used our school's CVS repository, but when we finally had enough of CVS's shortcomings, we switched to a git repository on GitHub.
+
+
+\subsection{Concurrent Versions System}
+
+CVS is a free and open source revision control system for software projects that dates back to 1986. Due to its age and numerous limitations, it is now mostly replaced by newer systems.
+
+Our main problems with CVS were the following:
+
+\begin{itemize}
+  \item CVS's inability to track renaming and movement of files and especially directories was a major hindrance during refactoring.
+  \item CVS's conflict management did not fit our tastes.
+\end{itemize}
+
+
+\subsection{Git}
+
+Git's major advantage when compared to CVS is that it was designed as a \emph{distributed} revision control system. That means that every client has a complete clone of the repository and can check out previous versions and other branches without connecting to the server. Moreover, Git assumes that most work is done in branches, so it provides efficient operations for branching and more importantly, merging. Another aspect of Git we liked a lot is that it doesn't create directories that contain no files. In contrast, CVS does not allow you to delete directories, which led to a lot of empty derectories after we changed the package structure while refactoring.
+
+\subsection{Checking out the Sombrero Sources}
+
+To check out the sombrero sources, \lstinline!cd! into an empty directory and \lstinline!git clone git://github.com/grill/sombrero.git!. For further information on the Sombrero sources, see How to Hack Sombrero\ref{NEEDED}.
+

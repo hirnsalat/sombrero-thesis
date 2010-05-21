@@ -1,0 +1,38 @@
+%\chapter{Ideas for the Future}
+\section{Improvement Suggestions - Sombrero}
+In the following chapter I'd like to present some improvement suggestions for sombrero. Most of them are ideas that turned up during project planning or development and were considered for implementation at some point, but have been dropped due to limited resources.
+
+\subsection{Triggers}
+This feature was planned for inclusion most of the time, but never really fit into any of the iterations because it requires thorough research of the user interface and serious restructuring on the code side.
+
+The idea is to allow the user to schedule KNX actions that automatically get executed when triggered by some kind of event. Events would mostly be time-based (e.g. turn on the heating at 4 pm so it's warm when you get home from office), but could also originate from KNX measurements (e.g. when the light is turned on, also raise the temperature because it is assumed that some person is inside the room).
+
+To implement this feature, one would have to think of some kind of event system similar to the widgets. Widgets themselves could be used for actions, but a mechanism for accurately specifying the action would be needed (e.g. the exact temperature).
+
+
+\subsection{Desktop Widgets}
+At one point, we had the idea that it would be cool if widgets could be "downloaded" to a user's desktop. Thus, the user would be able to monitor and manipulate selected KNX devices, maybe the lamp in the room the computer is in, without even launching the browser. This wouldn't even be incredibly hard to do, but we just didn't have the manpower to look for a decent desktop widget framework supporting XML, JavaScript and Ajax.
+
+
+\subsection{Hash Colored Widgets}
+While brainstorming on how the user could quickly identify the widgets, the idea to automatically assign a different color to each one came up. The color would be generated out of the name and/or KNX address of the widget, and therefore be unique and never change (as would be the case with random colors). As colors can be quickly identified with a glance, widgets could easily be found. However, because positional information and names can be remembered and identified just as intuitively and random colors are surprisingly hard to do using JQuery, this feature was eventually dropped.
+
+
+\subsection{Room List}
+The room list would allow administrators to manage room and widget layout more easily. Rooms would be laid out in a tree structure similar to the directory index of modern file browsers. Next to the room names, all the widgets in the room would be listed, represented by small icons. When hovering above one of them with the mouse, the full widget would pop up, complete with admin buttons, most notably edit. Widgets and rooms would be moveable and rearrangeable through drag \& drop.
+
+\subsection{Pluggable Widgets}
+As of now, it is possible to add custom widgets (See "Hacking Sombrero" \ref{NEEDED}). To do so, however, you have to add your own source files, modify existing ones, and recompile the whole package. It would be ideal if you would just have to drop a file in a specific place and a new widget type would pop up.
+
+\section{Improvement Suggestions - Calimero}
+\subsection{Overview}
+During our work with sombrero we were lucky to have such an easy abstraction network abstraction library, but as time passed we encountered some difficulties concerning it and its interoperability with Scala. That's why our client suggested that we should add a list of possible improvements for calimero. We put a lot of thought into this and came up with the idea to develop a Scala wrapper library for calimero. The next sections will address some features that would be possible.
+
+\subsection{DSL}
+Our first idea was to implement a Domain Specific Language for calimero, to ease and assist learning. This can be done because the Scala language comes with a REPL, a read-evaluation-print-loop. This shell could be used as a platform for beginners to jumpstart calimero learning. It should also be interresting for testing purposes.
+
+\subsection{Generics}
+The tuwien.auto.calimero.dptxlator package in calimero contains classes to parse messages recieved from KNX devices into their respective Java types. We would propose to use only one class, that can be dynamicly typed with generics and Scala's implicits. In the current implementation each DPTX type has its own class.
+
+\subsection{Actors}
+In calimero all event processing is done by listeners. We had the idea to replace this technology with Actors. The main advantages would be that it's easier to avoid race conditions with actor support and that the whole programm gets more manageable.

@@ -1,0 +1,205 @@
+%\chapter{Technologies}
+\section{JavaScript and JQuery}
+\subsection{JavaScript}
+    JavaScript is a prototype-based\footnote[1]{a style of object-oriented programming in which classes are not present and behavior reuse (inheritance) is performed via a process of cloning existing objects that serve as prototypes} scripting language used mostly in the form of client-side programming to be executed in web browsers. It's also a dynamic language, this means that it executes many common programming commands at runtime. Another feature is the support for first-class functions.
+
+    Despite its name, JavaScript is unrelated to the Java programming language, but nevertheless there are similarities. It was developed by Brendan Eich of Netscape. The name was result of a marketing plot by Netscape and Sun. JavaScript is a trademark of Sun Microsystems.
+
+    Features:
+    \begin{itemize}
+        \item \textbf{imperative}
+
+            JavaScript supports all the structured programming syntax from C, but since 1.7 it distances it self more and more from C.
+        \item \textbf{dynamic}
+
+            Like in most scripting languages, types are associated with values, not variables. Almost everything in JavaScript is an object. With the eval function you can evaluate statements that are represented as a string at run-time.
+        \item \textbf{functional}
+
+            JavaScript has support for first class functions, closures and nested functions.
+        \item \textbf{other nice features:}
+
+            \begin{itemize}
+                \item \textbf{DOM manipulation}
+
+                    JavaScript executed in the web browser can be used to manipulate the DOM of the displayed HTML site.
+                \item \textbf{arrays and objects}
+
+                    Another great feature of JavaScript is the support of Arrays and Objects.
+            \end{itemize}
+    \end{itemize}
+\subsection{Ajax}
+    ``Ajax (shorthand for asynchronous JavaScript and XML) is a group of interrelated web development techniques used on the client-side to create interactive web applications.''\cite{wikipedia.org:ajax} In sombrero it is used to invoke asynchronously callbacks on the server to update the status of KNX devices or change and save a configuration. If you want more information concerning Ajax look into the The Lift Book\cite{becker:09}.
+
+\subsection{Comet}
+``In web development, Comet is a neologism to describe a web application model in which a long-held HTTP request allows a web server to push data to a browser, without the browser explicitly requesting it.''\cite{wikipedia.org:comet} In Lift this is done by a pull mechanism. In sombrero Comet is used to update widgets on the client, for instance if a the name of a widget was changed or the a lamp was turned on. If you want more information concerning Comet look into the Lift Book\cite{becker:09}.
+
+\subsection{JQuery}
+    jQuery is a lightweight cross-browser JavaScript library designed to simplify the client-side scripting of HTML. It was released in January 2006 by John Resig and is used by over 27\% of the 10,000 most visited websites.
+
+    ``jQuery is free, open source software, dual-licensed under the MIT License and the GNU General Public License, Version 2.4 jQuery's syntax is designed to make it easier to navigate a document, select DOM elements, create animations, handle events, and develop Ajax applications. jQuery also provides capabilities for developers to create plugins on top of the JavaScript library. Utilising these facilities, developers are able to create abstractions for low-level interaction and animation, advanced effects and high-level, themeable widgets.''\cite{wikipedia.org:jquery}
+
+    The jQuery library is usually a single JavaScript file, containing all its common functions. To include it within a web page use the following mark-up:
+    \lstinline!<script type="text/javascript" src="jQuery.js"></ script>!
+
+    JQuery features in more detail:
+    \begin{itemize}
+        \item \textbf{Chaining}
+
+            Almost every method in JQuery returns a JQuery object, which can be used to call another method. That's why most statements aren't distributed over many lines of code. Another important feature of methods in JQuery is that most of them are implemented using the each method to iterate through a given set, so that the called method is called for every element of the set.
+        \item \textbf{Core and Utilities}
+
+            Here is a short list of very important methods of JQuery:
+
+            \begin{itemize}
+                \item \textbf{\lstinline!$("CSS3 Selector")!}
+                    is also called the JQuery function and takes a string as an argument and returns a set of matched elements.
+                \item \textbf{\lstinline!$.each(array, callback)!}
+                    iterates through the array and calls for each element of the set the callback with the parameters index and value.
+                \item \textbf{\lstinline!$.map(array, callback)!}
+                    is similar to the Scala function map. It translates all items in an array or array-like object to another array of items.
+                \item \textbf{\lstinline!$.extend(deep, target, object1, objectN)!}
+                    merges the contents of two or more objects together into the first object and it's often used as a replacement for inheritance.
+            \end{itemize}
+        \item \textbf{Attributes}
+
+            Controlling the attributes of DOM elements is quite easy in JQuery:
+
+            \begin{itemize}
+                \item \textbf{\lstinline!attr(name)!}
+                    get the value of an attribute by name
+                \item \textbf{\lstinline!attr(name, val)!}
+                    set the value of an attribute by name
+                \item \textbf{\lstinline!css(name)!}
+                    get the value of a CSS attribute by name
+                \item \textbf{\lstinline!css(name, val)!}
+                    set the value of a CSS attribute by name
+            \end{itemize}
+        \item \textbf{Traversing}
+
+            This feature enables JQuery to filter and find nodes in a set.
+        \item \textbf{Manipulation}
+
+            The manipulation package gives you the functionality to set or get the content of a set of nodes or even to append and remove nodes from it.
+            Here is a short list of some useful methods:
+
+            \begin{itemize}
+                \item \textbf{\lstinline!text()!}
+                    returns the text inside every node of the matched set
+                \item \textbf{\lstinline!text(val)!}
+                    changes the text inside every node of the matched set
+                \item \textbf{\lstinline!append(val)!}
+                    appends val to the last element inside the matched node. If a set of nodes is matched this is done to all of them.
+                \item \textbf{\lstinline!clone()!}
+                    creates a copy of set of matched nodes.
+                \item \textbf{\lstinline!remove()!}
+                    removes a set of matched nodes from the DOM.
+                \item \textbf{\lstinline!detach()!}
+                    removes a set of matched nodes from the DOM. This method those mostly the same as remove, except that it keeps all data associated with the removed elements.
+            \end{itemize}
+
+        \item \textbf{Events}
+
+            In JQuery UI mostly all initialization is done on page load, like for instance in sombrero the creation of the widgets and the binding of events. This event is call after the whole page has been fully built up.
+            Example:
+
+\begin{lstlisting}[caption=initiazitation of a JQuery UI widget,label=lst:jquery:initwidget]
+$(document).ready(function(){
+    //widget init
+    $(".class").bind('click', function() {
+        alert('bar');
+    });
+    // or shorter with event helpers
+    $(".class").click(function(){
+        alert('bar');
+    });
+});
+\end{lstlisting}
+        \item \textbf{Effects}
+            Another great feature of JQuery is the Effects feature. It enables you to animate showing and hiding of DOM elements in a appealing way.
+    \end{itemize}
+
+\subsection{JQuery UI}
+``JQuery UI provides abstractions for low-level interaction and animation, advanced effects and high-level, themeable widgets, built on top of the jQuery JavaScript Library, that you can use to build highly interactive web applications.
+
+jQuery UI provides a comprehensive set of core interaction plugins, UI widgets and visual effects that use a jQuery-style, event-driven architecture and a focus on web standards, accessibility, flexible styling, and user-friendly design.''\cite{jqueryui.com}
+
+    Some plugins we used:
+    \begin{itemize}
+        \item \textbf{Draggable}
+            gives a set of matched DOM elements the ability to be dragged on the page.
+        \item \textbf{Dialog}
+            gives a set of matched DOM elements the ability to open a dialog if clicked.
+        \item \textbf{Effects}
+            enables the programmer to animate the showing and hiding process in an appealing way.
+    \end{itemize}
+
+\subsection{JQuery UI CSS framework}
+Widgets in sombrero are used to promote harmless div tags to beautiful widgets. So they contain a combination of logic and view and all of them are fully themeable using the JQuery UI CSS framework and plugin specific styles.
+
+``The jQuery UI CSS Framework provide semantic presentation classes to indicate the role of an element within a widget such as a header, content area, or clickable region. These are applied consistently across all widgets so a clickable tab, accordian or button will all have the same "ui-state-default" class applied to indicate that it is clickable. When a user mouses over one of these elements, this class is changed to ui-state-hover, then ui-state-active when selected. This level of class consistency makes it easy to ensure that all elements with a similar role or interaction state will look the same across all widgets.
+
+The CSS Framework styles are encapsulated in a single file called ui.theme.css and this is the file modified by the ThemeRoller application. Framework styles only include attributes that affect the look and feel (primarily color, background images and icons) so these are 'safe' styles that will not affect functionality of individual plugins. This separation means that a developer can create a custom look and feel by modifying the colors and images in theme.css file and know that as future plugins or bug fixes become available, these should work with the theme without modification.''\cite{jqueryui.com}
+
+\subsection{JQuery UI widget factory}
+The jquery.ui.widget.js file provides a factory method to create widget classes. Calling the factory creates a widget method used to create and interact with an instance of that widget class. This method can be called from any JQuery DOM node for the initialization or manipulation of the respective widget.
+
+The following default methods are available for each instance, in addition to those provided by the prototype argument:
+    \begin{itemize}
+        \item \textbf{\lstinline!destroy()!}
+            removes the instance from the encapsulated DOM element, which was stored on instance creation
+        \item \textbf{\lstinline!option(String key[, String value])!}
+            gets or sets an option for this instance
+    \end{itemize}
+
+Available properties for each instance:
+    \begin{itemize}
+        \item \textbf{\lstinline!options!}
+            is a mix of defaults with settings provided by the user.
+        \item \textbf{\lstinline!element!}
+            is a jQuery object always containing the associated DOM element.
+    \end{itemize}
+
+Usage:
+\begin{lstlisting}[caption=sourcecode of a JQuery UI widget,label=lst:jquery:writewidget]
+(function($) {
+//This statement assures that in this scope $ = JQuery
+
+$.widget("ui.thewidget", {
+   _init: function() {
+     // constructor for thewidget
+     // "this" is accessible in all methods of the widget
+     // except in anoynmous functions
+     if (this.options.option) {
+       // this.element is a reference to the DOM node associated to
+       // to the widget
+       this.element.hide();
+     }
+   },
+   _foo: function() {
+      // internal functions should be named with a leading underscore
+   },
+   bar: function(val) {
+     // calculate some value and return it
+     return 1+val;
+   },
+   destroy: function() {
+       // overrides the default destructor
+       $.Widget.prototype.destroy.apply(this, arguments); // call of the super destroy method
+        // destroy widget specific stuff
+   }
+});
+
+$.extend($.ui.thewidget, {
+	version: "1.0",
+	defaults: {
+        option: true   //default value
+    }
+});
+
+//creates the widget
+$("#id").thewidget({
+    option: false
+});
+
+})(jQuery);
+\end{lstlisting}

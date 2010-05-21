@@ -1,0 +1,145 @@
+\select@language {USenglish}
+\contentsline {chapter}{Eidesstattliche Erkl\"arung}{i}{section*.1}
+\contentsline {chapter}{Acknowledgements}{ii}{section*.1}
+\contentsline {chapter}{Abstract}{iii}{section*.1}
+\contentsline {chapter}{Index}{v}{section*.1}
+\contentsline {chapter}{Chapter Allocation}{1}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Overview}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}The Client: Vienna Universe of Technology, Automation Systems Group, A-Lab}{3}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}The School: H\"ohere Technische Bundes Lehr- und Versuchsanstalt Wiener Neustadt}{4}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Planned Field of Use}{5}{subsection.1.1.3}
+\contentsline {section}{\numberline {1.2}Motivation}{6}{section.1.2}
+\contentsline {section}{\numberline {1.3}Goals and Tasks}{8}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Criteria}{8}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Goals}{9}{subsection.1.3.2}
+\contentsline {section}{\numberline {1.4}Interesting facts about Sombrero}{10}{section.1.4}
+\contentsline {chapter}{\numberline {2}Project Progression}{12}{chapter.2}
+\contentsline {section}{\numberline {2.1}Methodology}{12}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Overview}{12}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Agile Manifesto}{13}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Getting Real}{13}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Project Manifest}{13}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Google Sites, Docs and Groups}{14}{subsection.2.1.5}
+\contentsline {subsection}{\numberline {2.1.6}Pivotaltracker}{14}{subsection.2.1.6}
+\contentsline {section}{\numberline {2.2}Iterations}{15}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Iteration 1 - Prototyping}{15}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Iteration 2 - Working}{17}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Iteration 3 - Finishing}{19}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Challenges}{21}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}New Technologies}{21}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Illness}{21}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Collision Detection between Widgets}{21}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}The perfect project management tool}{21}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Testing of Sombrero}{22}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}CVS vs. Git}{22}{subsection.2.3.6}
+\contentsline {subsection}{\numberline {2.3.7}Eclipse Support}{22}{subsection.2.3.7}
+\contentsline {subsection}{\numberline {2.3.8}Challenges Concerning Mapper}{23}{subsection.2.3.8}
+\contentsline {section}{\numberline {2.4}Project log}{25}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Gabriel A. Grill}{25}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Alexander C. Steiner}{28}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Similar Products}{29}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}KNX@home}{29}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}LinuxMCE}{29}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Scala Days 2010}{30}{section.2.6}
+\contentsline {chapter}{\numberline {3}Technology}{31}{chapter.3}
+\contentsline {section}{\numberline {3.1}KNX}{31}{section.3.1}
+\contentsline {section}{\numberline {3.2}Calimero}{34}{section.3.2}
+\contentsline {section}{\numberline {3.3}Scala}{37}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Syntax}{37}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Singletons}{39}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Functions as Values}{39}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Pattern Matching}{41}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}Traits}{41}{subsection.3.3.5}
+\contentsline {subsection}{\numberline {3.3.6}Actors}{42}{subsection.3.3.6}
+\contentsline {section}{\numberline {3.4}Lift}{43}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Templates}{43}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Snippets}{44}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Mapper}{46}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Comet}{47}{subsection.3.4.4}
+\contentsline {section}{\numberline {3.5}JavaScript and JQuery}{50}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}JavaScript}{50}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Ajax}{51}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Comet}{51}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}JQuery}{51}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}JQuery UI}{53}{subsection.3.5.5}
+\contentsline {subsection}{\numberline {3.5.6}JQuery UI CSS framework}{54}{subsection.3.5.6}
+\contentsline {subsection}{\numberline {3.5.7}JQuery UI widget factory}{54}{subsection.3.5.7}
+\contentsline {section}{\numberline {3.6}JQuery Plugins}{57}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}JQuery-message}{57}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}JQuery-collide}{57}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Fancybox}{58}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}iPod-style drilldown menu}{58}{subsection.3.6.4}
+\contentsline {section}{\numberline {3.7}CSS and Yaml}{59}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}CSS}{59}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Yaml}{59}{subsection.3.7.2}
+\contentsline {section}{\numberline {3.8}Version Control}{60}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Concurrent Versions System}{60}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Git}{60}{subsection.3.8.2}
+\contentsline {subsection}{\numberline {3.8.3}Checking out the Sombrero Sources}{60}{subsection.3.8.3}
+\contentsline {section}{\numberline {3.9}Development Environment}{61}{section.3.9}
+\contentsline {subsection}{\numberline {3.9.1}Eclipse}{61}{subsection.3.9.1}
+\contentsline {subsection}{\numberline {3.9.2}Eclipse Plugins}{61}{subsection.3.9.2}
+\contentsline {subsection}{\numberline {3.9.3}Maven}{61}{subsection.3.9.3}
+\contentsline {chapter}{\numberline {4}How to use Sombrero}{63}{chapter.4}
+\contentsline {section}{\numberline {4.1}Installation}{63}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Windows and Linux}{63}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}User Mode}{64}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}What is User Mode?}{64}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Favorites Bar}{66}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Tree view Sidebar}{66}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Sombrero widgets}{66}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}Room Link}{67}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.6}Roller Blind}{68}{subsection.4.2.6}
+\contentsline {subsection}{\numberline {4.2.7}Temperature actuator}{69}{subsection.4.2.7}
+\contentsline {subsection}{\numberline {4.2.8}Dimmer}{70}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.9}Lamp}{71}{subsection.4.2.9}
+\contentsline {subsection}{\numberline {4.2.10}Switch}{72}{subsection.4.2.10}
+\contentsline {section}{\numberline {4.3}Admin Mode}{73}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}What is Admin Mode?}{73}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Widget Editing}{74}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Admin Sidebar}{74}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Widget Configuration Buttons}{75}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}User List}{75}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Router Discovery}{76}{subsection.4.3.6}
+\contentsline {subsection}{\numberline {4.3.7}Device Finder}{76}{subsection.4.3.7}
+\contentsline {subsection}{\numberline {4.3.8}Group Address Aliases}{76}{subsection.4.3.8}
+\contentsline {chapter}{\numberline {5}How to hack Sombrero}{77}{chapter.5}
+\contentsline {section}{\numberline {5.1}Overview}{77}{section.5.1}
+\contentsline {section}{\numberline {5.2}How to create a Widget}{78}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Overview}{78}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}KNX widget - Scala}{78}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}KNX widget - JavaScript}{86}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Widgets from scratch}{92}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Constructing a WidgetData Table}{94}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Mix in WidgetData and WidgetMetaData}{94}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Create some Fields}{95}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Create meaningful Form Generators or Validations}{95}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Write a Widget}{96}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {5.3.5}Insert into WidgetList}{96}{subsection.5.3.5}
+\contentsline {chapter}{\numberline {6}Ideas for the Future}{97}{chapter.6}
+\contentsline {section}{\numberline {6.1}Improvement Suggestions - Sombrero}{97}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Triggers}{97}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Desktop Widgets}{98}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Hash Colored Widgets}{98}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Room List}{98}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.5}Pluggable Widgets}{98}{subsection.6.1.5}
+\contentsline {section}{\numberline {6.2}Improvement Suggestions - Calimero}{99}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Overview}{99}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}DSL}{99}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Generics}{99}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Actors}{99}{subsection.6.2.4}
+\contentsline {chapter}{\numberline {7}Conclusion}{100}{chapter.7}
+\contentsline {chapter}{Appendix}{101}{chapter.7}
+\contentsline {chapter}{\numberline {A}Curricula Vitae}{101}{appendix.A}
+\contentsline {section}{\numberline {A.1}Alexander C. Steiner}{102}{section.A.1}
+\contentsline {section}{\numberline {A.2}Gabriel A. Grill}{104}{section.A.2}
+\contentsline {chapter}{\numberline {B}Source Structure}{105}{appendix.B}
+\contentsline {section}{\numberline {B.1}Packages}{105}{section.B.1}
+\contentsline {section}{\numberline {B.2}Database Model}{106}{section.B.2}
+\contentsline {section}{\numberline {B.3}Widget Structure}{107}{section.B.3}
+\contentsline {chapter}{List of Figures}{109}{figure.B.3}
+\contentsline {chapter}{List of Listings}{110}{appendix*.7}
+\contentsline {chapter}{Glossary}{112}{appendix*.8}
+\contentsline {chapter}{Index}{112}{appendix*.8}
+\contentsline {chapter}{Bibliography}{112}{appendix*.8}

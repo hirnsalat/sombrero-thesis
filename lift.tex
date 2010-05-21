@@ -1,0 +1,220 @@
+%\chapter{Technology}
+\section{Lift}
+
+The Lift homepage (\url{http://www.liftweb.net/}) states that:
+"Lift is an expressive and elegant framework for writing web applications. Lift stresses the importance of security, maintainability, scalability and performance, while allowing for high levels of developer productivity. Lift open source software licensed under an Apache 2.0 license."
+
+It uses Scala as its programming language, which allows for compatibility with Java classes and Java Servlet Containers.
+
+For further reading, we recommend "The Lift Book", \url{http://groups.google.com/group/the-lift-book/}.
+
+
+\subsection{Templates}
+
+In an effort to truly separate program logic and view, templates were created. Templates can import other templates and call special Scala functions called snippets. Meanwhile, all templates stay XML-conform, allowing them to be edited with most standard HTML and XML editors.
+
+\begin{lstlisting}[caption=Lift Templates: userlist.html,label=lst:lift:templates]
+<!-- surrounds the content of this tag with the template file "default-admin" -->
+<lift:surround with="default-admin" at="content">
+
+<!-- calls snippet UserList and passes the tag's content -->
+<lift:UserList form="POST">
+<table>  <tr>
+    <td>
+      User (click to edit)
+    </td>
+    <td colspan="3">
+      set password
+    </td>
+    <td>
+      delte user
+    </td>
+  </tr>
+  
+  <!-- prefixed elements are commonly used with Lift's bind function -->
+  <userlist:entries>
+  <tr>
+    <td>
+      <user:link />
+    </td>
+    <td>
+      <user:newPw />
+    </td>
+    <td>
+      <user:newPw />
+    </td>
+    <td>
+      <user:submit />
+    </td>
+    <td>
+      <user:delete />
+    </td>
+  </tr>
+  </userlist:entries>
+</table>
+</lift:UserList>
+</lift:surround>
+\end{lstlisting}
+
+
+\subsection{Snippets}
+
+Snippets are Scala functions designed to be called by templates. They are methods of classes in a designated package, per convention called "snippet". They are then called using \lstinline!<lift:Class.method />!. If no method is given, it defaults to \lstinline!render!. All snippets take a \lstinline!scala.xml.NodeSeq! (the scala class representing XML structures) as a parameter and return a \lstinline!scala.xml.NodeSeq!.
+
+HTML output is most easily generated with the SHtml object, which contains HTML generation methods for most standard uses.
+
+An important method to note here is \lstinline!net.liftweb.util.BindHelpers.bind!, which will most of the time be imported through \lstinline!net.liftweb.util.Helpers!. It takes a prefix name as \lstinline!String!, a \lstinline!NodeSeq! and an arbitrary amount of \lstinline!String!, \lstinline!NodeSeq! tuples, resembling a map from \lstinline!String! to \lstinline!NodeSeq!. It then parses the NodeSeq and replaces any tags of the form \lstinline!<prefix:rest>! with the specified prefix and looks for the rest of the name in the map. Every matching tag is replaced by the map value. This allows designers to place the tags without even knowing what they will be in the end.
+
+Here is the snippet for the template example in the previous section:
+\begin{lstlisting}[caption=Lift Snippets: UserList.scala,label=lst:lift:snippets]
+class UserList {
+
+  //return type of snippets should be defined manually to avoid compiler confusion
+  def render(xhtml : NodeSeq) : NodeSeq = {
+    def entry(user : User, insidexhtml : NodeSeq) : NodeSeq = {
+      var newPasswd : List[String] = Nil
+      
+      def testAndSet {
+        user.password.setFromAny(newPasswd)
+        user.validate match {
+          case Nil => user.save; S.notice(user.email.is + "'s password set")
+          case xs => S.error(xs)
+        }
+      }
+      
+      def testAndDelete {
+        if(user.superUser.is && User.count(By(User.superUser, true)) == 1)
+          S.error("you can't delete the last admin")
+        else
+          user.delete_!
+      }
+    
+      //binds <user:something /> tags
+      bind("user", insidexhtml,
+           //tuple (a, b) can be written as a -> b
+           "link" -> link("/useredit/" + user.id.is, () => Empty, Text(user.email.is)),
+           "newPw" -> password_*("", LFuncHolder(newPasswd = _)),
+           "submit" -> submit("Set Password", testAndSet _),
+           "delete" -> submit("Delete User", testAndDelete _)
+         )
+    }
+    
+    bind("userlist", xhtml, "entries" -> ((insidexhtml) =>
+    User.findAll().flatMap(entry(_, insidexhtml))))
+  }
+}
+\end{lstlisting}
+
+
+\subsection{Mapper}
+
+Mapper is Lift's Object Relational Mapping (ORM) framework. The idea behind ORM frameworks is to write a class with specific attributes and then store instances of this class in a relational database. In Lift's case, Mapper can take any class extending the \lstinline!net.liftweb.mapper.BaseMapper! trait and create database tables in any database accessible through JDBC. In practice you would use the \lstinline!net.liftweb.mapper.KeyedMapper! or \lstinline!net.liftweb.mapper.LongKeyedMapper! traits because they offer implementations for most of \lstinline!BaseMapper!'s undefined functions.
+
+To construct a Mapper-enabled class, you need a Mapper class and a MetaMapper companion object. The MetaMapper traits include many useful functions for manipulating the database table and fetching objects from the database. Inside the Mapper class, fields to be mapped to the database are defined as objects extending one of the mapped fields, e.g. \lstinline!net.liftweb.mapper.MappedLong! or \lstinline!net.liftweb.mapper.MappedString!.
+
+\begin{lstlisting}[caption=Lift Mapper: Room.scala,label=lst:lift:mapper]
+//LongKeyedMapper takes the actual class as a type parameter
+//IdPK inserts a long id field that automatically increments
+class Room extends LongKeyedMapper[Room] with IdPK {
+  //returns the corresponding MetaMapper
+  def getSingleton = Room
+   
+  //creates a string field
+  object name extends MappedString(this, 25) {
+    //creates a database index for quicker searching
+    override def dbIndexed_? = true
+  }
+   
+  object parent extends MappedLongForeignKey(this, Room) {
+    override def dbIndexed_? = true
+  } 
+  
+  object image extends MappedBinary(this)
+  object imageMime extends MappedString(this,100)
+  
+  //utility methods
+  def widgets = Widget.findAll(By(Widget.room, this.id))
+  def children = Room.findAll(By(Room.parent, this.id))
+  
+  //cascadingly delete associated widgets
+  override def delete_! = { Widget.bulkDelete_!! (By(Widget.room, this.id)); super.delete_! }
+}  
+ 
+object Room extends Room with LongKeyedMetaMapper[Room] {
+  def roots = Room.findAll(By(Room.parent, Empty))
+  object currentVar extends RequestVar[Box[Room]](Empty)
+  def current = currentVar.is
+}
+\end{lstlisting}
+
+
+\subsection{Comet}
+
+Building on Scala's actors, Comet in Lift is implemented through CometActors. A special tag, \lstinline!<lift:comet>!, is also needed. Comet tags need to have a type and a name attribute. Type is the CometActor class wanted, and Name exists to identify multiple different CometActors in a single page. The CometActor can specify a render method like widgets, except that bind's prefix parameter is specified as a global def and the NodeSeq parameter is not needed. This is because the CometActor's tags can be refreshed individually without a page reload and bind is thus implemented as an instance method rather than a singleton method. CometActor also has three receive methods to override, \lstinline!lowPriority!, \lstinline!mediumPriority! and \lstinline!highPriority!. Inside these methods, \lstinline!partialUpdate! and \lstinline!reRender! can be called to send a JavaScript command to the browser and rerender the CometActor (not the whole page!) respectively.
+
+Ajax is often used in conjunction with comet. However, Ajax is extremely easy to use in Lift. Just use one of SHtml's Ajax methods, which asynchronously call Scala functions on the server.
+
+To illustrate the use of CometActors, here is sombrero's implementation of the router discovery:
+
+\begin{lstlisting}[caption=Lift Comet: discovery.html,label=lst:lift:cometxhtml]
+<lift:Surround.choose>
+    Router IP: <lift:KNXRouter.ip/> <br/>
+    
+  <!-- comet actor inclusion, name is irrelevant since there is only one comet tag on the page -->
+  <lift:comet type="Discovery" name="something">
+    <rtr:button/>
+    <rtr:entries/>
+  </lift:comet>
+  
+  <lift:KNXRouter.set form="POST">
+    <knxrouter:ip/>
+    <knxrouter:set/>
+  </lift:KNXRouter.set>
+</lift:Surround.choose>
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Lift Comet: Discovery.scala,label=lst:lift:cometscala]
+class Discovery extends CometActor {
+  //set binding prefix
+  override def defaultPrefix = Full("rtr")
+  
+  //generate controls
+  def render = bind("now" -> Text(model.KNXRouter.get_?.map(_.ip.is) openOr "Nothing!"),
+      "entries" -> <table id="routerlist" />,
+      "button" ->  ajaxButton("Start discovery", () => {spawn{discover()}; Noop}))
+      
+  def discover() = {
+    //create a new KNX router discoverer and search for routers
+    val d = new Discoverer(0, false)
+    
+    d.startSearch(10, true)
+    
+    Log.info(d.getSearchResponses.length.toString)
+    
+    //replace the generated table with a table containing the results
+    this ! SetHtml("routerlist",
+    <table id="routerlist">
+      {d.getSearchResponses.foldLeft(Nil : NodeSeq)
+        {(a,b) => a ++
+          <tr>
+            <td>
+              {SHtml.link(".", () =>
+                model.KNXRouter.get.
+                ip(b.getControlEndpoint.toString).
+                save, Text(b.getControlEndpoint.toString))}
+            </td>
+          </tr>}
+      }
+    </table>
+    )
+  }
+  
+  //forward received JsCmds to the client
+  override def lowPriority : PartialFunction[Any, Unit] = {
+  case cmd : JsCmd => {
+      partialUpdate(cmd)
+    }
+  }
+}
+\end{lstlisting}
+

@@ -1,0 +1,11 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.5.6)  11 MAY 2010 14:55
+entering extended mode
+**C:/Dokumente*und*Einstellungen/Gabriel/Desktop/diplatex/goals-and-tasks.tex
+("C:/Dokumente und Einstellungen/Gabriel/Desktop/diplatex/goals-and-tasks.tex"
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, loaded.
+! Undefined control sequence.
+l.2 \section
+            {Goals and Tasks}
+? 

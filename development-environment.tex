@@ -1,0 +1,33 @@
+%\chapter{Technologie}
+\section{Development Environment}
+\subsection{Eclipse}
+    Eclipse is a multi-language software development environment comprising an IDE with a plug-in system.
+    
+\subsection{Eclipse Plugins}
+    In sombrero we used the following eclipse plugins:
+    \begin{itemize}
+        \item \textbf{Git plugin}
+
+
+            ``EGit is an Eclipse Team provider for the Git version control system. Git is a distributed SCM, which means every developer has a full copy of the complete history of every revision of the code, making queries against the history very fast and versatile. The EGit project is implementing Eclipse tooling on top of the JGit Java implementation of Git.''\cite{eclipse.org:egit}
+        \item \textbf{Scala plugin}
+
+
+            The Scala plugin is currently beeing developed by Miles Sabin. Its goal is to make the eclipse IDE as comfortable useable for Scala developers as it is for Java developers.
+    \end{itemize}
+\subsection{Maven}
+    Maven is a tool for Java project management and build automation. Maven is offered by the Apache Software Foundation.
+
+    Maven uses the Project Object Model to describe how projects are build. It comes with a set of predefined targets, but they can be changed by changing the pom.xml file.
+
+    Most of maven's functionality is in plugins. A plugin extends the standard maven command mvn with additional commands.
+
+        \lstinline!mvn [plugin-name]:[goal-name]!
+
+    For example to run sombrero you have to run the command:
+
+        \lstinline!mvn jetty:run!
+
+    Another great feature of Maven is the ability to add dependencies to your project. Just write them into your pom.xml file and they are available for your project. These dependencies can even be automatically updated.
+
+    Maven was very useful to our project because plugins are available for CVS and Git. As a result, it was very easy to integrate the Version Management into the build life cycle.

@@ -1,0 +1,23 @@
+\chapter{Restrictions}
+As much as we hoped for sombrero to be universal and complete, some challenges occured which we were unable to overcome in the highly limited time. The compromises struck to correct these are described here.
+
+
+\subsection{KNX Widgets}
+We discovered that KNX specifications didn't go as far as we would like them to. The only thing defined are data points, not devices, which means that specific models can vary in the form of access. What this means for different widgets is described below.
+
+\begin{itemize}
+\item \textbf{Lamp and Switches:} These should work in virtually every case.
+\item \textbf{Dimmer:} The dimmer should also work most of the time, although it may display an incorrect state.
+\item \textbf{Temperature:} The situation here is similar to the dimmer. However, the thermostat we tested it with randomly reset the target temperature to another value.
+\item \textbf{Roller Blind:} Unfortunately, we had no opportunity to test this device. Therefore, it is likely unstable and recommended to be adopted ot the specific device.
+\end{itmeize}
+
+
+\subsection{Possible KNX Widget Failure during Restructuring}
+
+When the widget structure is changed, it can occur that KNX widgets no longer work. To solve this problem, the user has to start a new session, i.e. restart the web browser. The cause of this are complicated interactions between comet actors and the database.
+
+
+\subsection{High Network Traffic with multible Tabs}
+
+When multiple instances of certain sombrero pages are opened in the same session (i.e. web browser, most likely in different tabs), multiple Http GET requests per second are sent. This is due to Lift's comet architecture. (see e-mail exchange at \url{http://www.mail-archive.com/liftweb@googlegroups.com/msg11276.html})

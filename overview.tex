@@ -1,0 +1,31 @@
+%\chapter{Introduction}
+\section{Overview}
+
+Home automation has been getting increasingly popular in recent times. The technology is getting cheaper and awareness is rising, leading to lots of newly built houses being equipped with some sort of building automation technology. Yet at the same time, no decent open source tool exists for people to actually control their homes from the comfort of their computer seat, even though this would be relatively easy to do. While there are open source products claiming KNX support, they are often restricted to lamps, and most of the time severely buggy, lacking in features, platform-specific and, most importantly, almost impossible to configure without advanced computer knowledge.
+
+Meanwhile, Vienna Universe of Technology's calimero KNX control library just saw a complete rewrite and desperately needed testing. Also, Gabriel and Alexander needed a topic for their diploma thesis. It was a perfect match.
+
+
+\subsection{The Client: Vienna Universe of Technology, Automation Systems Group, A-Lab}
+
+From their homepage\cite[whole page]{auto.tuwien.ac.at:a-lab}:
+
+"Since 1997, the Distributed Automation Systems Lab (A-Lab) is home to research in industrial automation as well as home and building automation. Research topics focus on distributed control systems and fieldbus technology (have a look at the list of publications that have been made by lab members). The lab is headed by Prof. Wolfgang Kastner.
+
+The lab equipment is used for proof-of-concept implementations and interoperability tests when putting research ideas into practice. It also serves educational purposes. Interested companies are welcome to use our systems for interoperability tests. Lab equipment focuses on open fieldbus standards, in particular BACnet, KNX (EIB), LON, PROFIBUS, PROFInet, and ASi. However, other popular systems such as ZigBee and EnOcean are present as well. These systems are integrated with demonstrator plants for both industrial automation and home/building automation.
+
+Its broad R\&D scope notwithstanding, the A-Lab has a strong tradition of competence in KNX (EIB) technology. It is home to a number of popular open source software packages related to KNX."
+
+Gabriel was the first of us to get in contact with the institute when he served his summer internship there. When we were on the lookout for diploma thesis topics, he contacted them again and they suggested writing a web server for KNX management and control for deployment in domestic environments. We then handed the proposal over to DI Haberstroh, who had agreed to be our supervising teacher. It was consequently accepted and Sombrero was born.
+
+
+\subsection{The School: Höhere Technische Bundes Lehr- und Versuchsanstalt Wiener Neustadt}
+
+HTBLuVA Wiener Neustadt was founded in 1873 and is the oldest school with focus on engineering and economy in Lower Austria. It was founded as an engineering school. The four departments are mechanical engineering, building engineering, electrical engineering and electronic data processing and organisation. Each department offers high school courses, some also offer professional school courses and evening courses. [cf. \url{http://www.htlwrn.ac.at/wir.html} (German)]
+
+Alexander and Gabriel are currently attending HTBLuVA Wiener Neustadt, more precisely the fifth form of its department of Electronic Data Processing and Organization. It is possible to write a diploma thesis as a replacement to parts of the finals, and Alexander and Gabriel took the opportunity to write this thesis.
+
+
+\subsection{Planned Field of Use}
+
+The target group of Sombrero are technologically interested and accomplished people living in KNX-wired homes and their families. As installation of Sombrero would require at least a bit of research and the existence of KNX wiring implied technological interest, it was expected that at least one member of the family would be technologically knowledgeable, and the user interface was split into two modes - the user mode for controlling KNX devices, which should be usable by anyone and reside at a sufficiently high abstraction level, and an administrator mode for controlling the setup as it appears in user mode. Sombrero is not intended to be accessible from the internet due to security concerns, and as such it will never try to open any firewall ports or configure port forwarding on the router, and doing so manually is highly discouraged.

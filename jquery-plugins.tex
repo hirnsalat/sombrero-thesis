@@ -1,0 +1,45 @@
+%\chapter{Technologies}
+\section{JQuery Plugins}
+\subsection{JQuery-message}
+    Version 1.0
+
+    ``This plugin allows you to easily display feedback messages as an unobtrusive overlay. The message fades away automatically after some time, avoiding the need to click an "ok" button or something similar. The user can speed up hiding of the message by moving the mouse or clicking anywhere.''\cite{bassistance.de}
+
+    Usage:
+\begin{lstlisting}[caption=JQuery message,label=lst:plugin:message]
+$(function() {
+    $().message("Hello world!");
+    // or
+    $("#display").message();
+});
+\end{lstlisting}
+
+\subsection{JQuery-collide}
+    Version 1.0
+
+    Adds collision detection to draggable objects.
+    Add "collide: 'block'" when you create a draggable:
+
+\begin{lstlisting}[caption=collison detection,label=lst:plugin:collide]
+$(".box").draggable({collide: 'block'});
+\end{lstlisting}
+    In 'block' mode objects are blocked from overlapping other objects by being snapped to the edge of the object they collided with.
+
+    This library was mostly rewritten, because it didn't support recursive collision detection and it wasn't able to detect a containment.
+\subsection{Fancybox}
+Version 1.3.0
+
+``FancyBox is a tool for displaying images, HTML content and multi-media in a Mac-style "lightbox" that floats overtop of web page.''\cite{fancybox.net} Mostly all dialogs in Sombrero are created by FancyBox.
+
+\begin{lstlisting}[caption=how to fancybox,label=lst:plugin:fancybox]
+    /* uses default settings */
+    $("tagname").fancybox();
+\end{lstlisting}
+
+
+\subsection{iPod-style drilldown menu}
+    Version  3.0
+
+The iPod-style drilldown menu was created to help users traverse hierarchical data quickly. It's especially helpful when organizing large data structures that don't translate well into traditional tree view menus.
+
+This library was heavily modified by Gabriel Grill. He fixed some bugs, changed some parts of the layout and changed the navigation so it would be possible for users to bookmark the current room. He also managed to change it from a drilldown menu to a side bar menu. For more insight on this topic read the chapter User Mode. 

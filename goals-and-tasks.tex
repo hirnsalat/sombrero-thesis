@@ -1,0 +1,46 @@
+%\chapter{Introduction}
+\section{Goals and Tasks}
+The idea behind sombrero was to create an easy to use application to control your house.
+\subsection{Criteria}
+
+  \begin{itemize}
+    \item \textbf{It has to be a web application}
+    
+        Our main goal for developing sombrero was to make it simple to use for everyone who can use a computer. So it was an obvious decision to use a web site for that. Almost everybody nowadays knows how to surf the net.
+    \item \textbf{It has to be fully KNX/EIB enabled and make use of Calimero}
+        
+        Calimero is a Java library for controlling a KNX/EIB based house. It was developed by our client, the Institute of Computer Aided Automation.
+    \item \textbf{It hast to support the several types of devices:}
+    
+        Sombrero has to support the following types of devices:
+            \begin{itemize}
+                \item \textbf{Lamp}
+                \item \textbf{Switch}
+                \item \textbf{Dimmer}
+                \item \textbf{Roller blind}
+                \item \textbf{Temperature actuator}
+            \end{itemize}
+        These devices were determined by our client to be the most common ones and because of that sombrero currently supports just them.
+    \item \textbf{The representation of the devices has to be graphical}
+        
+        We decided to display every device in form of a widget, which displays its current status on the page. Just by clicking it the user can change the status.
+    \item \textbf{It has to support at least on of the browsers firefox 3.6, google chrome 4.0 or opera 10.0 completely, and the others as good as possible}
+        
+        To make it possible to achieve this goal we used JQuery, a cross-browser conform JavaScript framework.
+    \item \textbf{It has to work on the operating systems Linux and Windows XP or higher}
+        
+        Because of this criterion we decided to use the JVM as an execution platform for our application. You can export .war\footnote[1]{Files with extension "war" are like .jar files for Java web server.} files from our application and integrate them in your Tomcat\footnote[2]{Tomcat is a open source serverlet container developed by Apache.}, Glassfish\footnote[3]{Glassfish is a open source serverlet container developed by Sun.} or Jetty\footnote[4]{Jetty is a Java based server developed by the eclipse foundation.} server if you want to. Those three are available for Windows and Linux.
+    \item \textbf{All written Code has to be properly documented}
+    
+        This criteria is very important to our client, because if somebody wants to improve sombrero later on, it would be quite a difficult task without proper documentation.
+  \end{itemize}
+
+\subsection{Goals}
+  \begin{itemize}
+    \item \textbf{The GUI should be as easy to use as possible.}
+    
+        To achieve this goal we tried to keep the whole thing very simple. Just by clicking and dragging you can control your house. To increase the clarity of the system we tried to bring some structure in this mess of devices and thought about an abstraction taking the real world as a role model. A house consists of rooms and in rooms there are devices. We used this tree like model to give the user the possibility to structure his/her devices like they are in the real world.
+    \item \textbf{The System should be as failsafe as possible.}
+    
+        We spent a lot of time with bug hunting and Lift is generally very failsafe, because it's very restrictive.
+  \end{itemize} 

@@ -1,0 +1,183 @@
+\section{Scala}
+
+Scala is a general purpose programming language. It is both object-oriented and functional and intends to minimize unnecessary code. It's concise syntax and, as a result, code sizes, can be compared to dynamic languages such as Python, while being statically typed.
+
+As Scala uses the Java Virtual Machine, it is fully interoperable with Java. Scala classes can freely use and even inherit from Java classes and vice versa.
+
+The following chapter is intended as a brief introduction to Scala, with a focus on the techniques used prominently in sombrero's code. It is in no way intended to be a complete guide to Scala. If you would like to learn more about Scala, we recommend looking at its web site, \url{http://www.scala-lang.org/}, and the book 'Programming in Scala' by Martin Odersky, the language's creator.
+
+\subsection{Syntax}
+
+As Scala syntax is fairly different to most other programming languages, here is a short and heavily documented example to illustrate the main differences to Java:
+
+\begin{lstlisting}[caption=Scala Syntax,label=lst:scala:syntax]
+//Classes can have parameters. These are equivalent to constructor parameters.
+//Types are written AFTER the variable name, separated by a colon.
+class Line(p1 : Point, p2 : Point) {
+
+  //Create instance variables.
+  //Type is inferred by the compiler.
+  //Equivalent to Java: public Point pleft = p1;
+  var pleft = p1 //No semicolon needed!
+  var pright = p2
+
+  //This code will be run on instanciation.
+  //Basically the constructor body.
+  //Note that Point.x could be a method since brackets for methods without parameters are not needed
+  if(p2.x < p1.x) {
+    pleft = p2
+    pright = p1
+  }
+
+  //A simple function without return value.
+  //Equivalent to Java: public void move(int dx, int dy) {
+  def move(dx : Int, dy : Int) {
+    pleft.x += dx
+    pleft.y += dy
+    pright.x += dx
+    pright.y += dy
+  }
+
+  //The '=' denotes a function with return value.
+  //Again, types are inferred by the compiler.
+  def diff = {
+    //The 'val' keyword creates a value (a constant).
+    //Immutable values are often used in functional programming style.
+    val newx = pright.x - pleft.x
+    val newy = pright.y - pleft.y
+    //The last statement in a block is the return value.
+    new Point(newx, newy)
+  }
+
+  //Because operator overloading is supported in Scala, it would be easier to do:
+  def diff2 = {
+    pright - pleft
+    //In fact, this is translated to:
+    pright.-(pleft)
+  }
+
+  //Shorter syntax without the curly brackets:
+  def diff3 = pright - pleft
+  def left = pleft.x
+  def right = pright.x
+
+  //XML literals
+  def toXml=
+  <line>
+    <point>{pleft.toString}</point>
+    <point>{pright.toString}</point>
+  </line>
+}
+\end{lstlisting}
+
+
+\subsection{Singletons}
+
+Singletons are object values that don't have an enclosing class. They are not fields of an instance, but rather reside inside a package next to classes. Singletons can also be imagined as classes that construct just one instance, but do so automatically. Fields and methods can be accessed through the object name, similar to static references in Java.
+
+A special category of singletons are companion objects. These are simply singletons with the same name as a class. They usually complement the class and are used as a replacement for static methods and fields, which don't exist in Scala. Companion objects are frequently used to create constructors and extractors (the opposite of a constructor). Constructors are usually implemented as the \lstinline!apply! method, which gets called when an object is used as a function (when you put a parameter list next to it).
+
+The following example adds companion objects to existing \lstinline!Line! and \lstinline!Point! classes.
+
+\begin{lstlisting}[caption=Scala Singletons and Companion Objects,label=lst:scala:singletons]
+object Line {
+  def apply(p1 : Point, p2 : Point) = new Line(p1, p2)
+}
+object Point {
+  def apply(x : Int, y : Int) = new Point(1, 2)
+  //apply gets called by doing
+  val origin = Point(0,0)
+}
+
+//this enables us to create a new Line by:
+val line = Line(Point.origin, Point(5,7))
+\end{lstlisting}
+
+
+\subsection{Functions as Values}
+
+In Scala, everything is an object, including functions. That means that you can pass functions or code blocks as arguments to other functions. Where you would use a Runnable in Java, for example, you just pass a function without arguments and return value in Scala.
+
+The next example describes different methods of incrementing all Elements of a list. As lists are by default immutable in Scala, the new list is returned and the old one unmodified. To do this, we use \lstinline!List!'s \lstinline!map! method. It takes a function as a parameter, applies the function to each element of the \lstinline!List! and returns a \lstinline!List! of the return values. To pass a function as a parameter rather than its return value, follow it with an underscore (\lstinline!_!).
+
+\begin{lstlisting}[caption=Scala Function Parameters,label=lst:scala:functions1]
+//Define the increment function we want to use later.
+def incr(i : Int) = i + 1
+
+//Square brackets indicate type parameters for generics. In Java, you would use angle brackets.
+def incrList(l : List[Int]) = l.map(incr _)
+\end{lstlisting}
+
+In the next example, we do not define the increment function explicitly. Rather, we make use of inline functions. These can be thought of as function literals, and consist of a parameter list, the character sequence \lstinline!=>! (symbolizing an arrow) and the function body. Scala allows to omitt the dot for method calls, and allows to use curly braces instead of round ones for inline functions so it looks like a code block and libraries can produce syntax indistinguishable from core Scala syntax. The following three lines are functionally exactly the same and just display the possibilities of the Scala syntax.
+
+\begin{lstlisting}[caption=Scala Inline Functions,label=lst:scala:functions2]
+def incrList1(l : List[Int]) = l.map((i : Int) => i + 1)
+def incrList2(l : List[Int]) = l map ((i : Int) => i + 1)
+def incrList3(l : List[Int]) = l map {(i : Int) => i + 1}
+\end{lstlisting}
+
+Most of the time, the Scala compiler can infer the types of inline function parameters. Thus, the type definition in the parameter list can be omitted. Because the parameter list no loger holds any essiantial information, it can be dropped as well. The underscore is then used where the parameter would otherwise be. If multiple underscores are used, the mark different parameters. That means that if you need to reference a parameter twice or more, you must name it. Again, the following three lines are equivalent to each other and the examples above.
+
+\begin{lstlisting}[caption=Dropping the Parameter List,label=lst:scala:functions3]
+def incrList4(l : List[Int]) = l map {(i) => i + 1}
+def incrList5(l : List[Int]) = l map {i => i + 1}
+def incrList6(l : List[Int]) = l map {_ + 1}
+\end{lstlisting}
+
+
+\subsection{Pattern Matching}
+
+Pattern matching can be seen as a vastly more powerful alternative to Java's switch/case statements. Instead of just matching values, it can also match types, match and extract an instance's fields, apply wildcards to the fields and apply general tests. Due to its type matching capabilities, it is used as a replacement to the cast operation, although this is not often necessary due to Scala's powerful type system.
+
+\begin{lstlisting}[caption=Scala Pattern Matching,label=lst:scala:patterns]
+x match {
+
+  //Match value and type simultaneously.
+  case 1 => println("one") //No break needed.
+
+  //Match type.
+  case s : String => println(s)
+
+  //Matches are evaluated top to bottom and the first match is executed.
+  case i : Int => println("not one: " + i)
+
+  //Match type and apply test.
+  case p : Point if p.x > 4 => println("right point: " + p)
+
+  //Extract fields.
+  case Point(x, y) => println("left point, x=" + x + " y=" + y)
+
+  //Extract some, match some others, wildcard the rest, and apply a test.
+  case Line(Point(x, y), Point(3, _)) if x == y => println("pretty specific line...")
+
+  //Catch everything that was has not yet matched anything.
+  case _ => println("something else")
+}
+\end{lstlisting}
+
+
+\subsection{Traits}
+
+Traits are similar to Java Interfaces, as they are both used as a substitute to multiple inheritance. In contrast to Interfaces, however, traits can and often do contain implementations for their methods. The process of extending a trait is more commonly refered to as "to mix in the trait". This is often used to add functionality to a class without subclassing it, as the mix in can be applied to subclasses of the class as well while instanciating.
+
+Suppose you would like to always be able to access the median element of your \lstinline!Stack!s and \lstinline!Queue!s. To do this, you make a trait that extends \lstinline!Seq!, \lstinline!Stack!'s and \lstinline!Queue!'s common superclass, and defines the \lstinline!median! method. Then, when instanciating a \lstinline!Queue!, you mix in the new trait and have access to the median method.
+
+\begin{lstlisting}[caption=Scala Pattern Matching,label=lst:scala:patterns]
+//_ is used instead of *
+import scala.collection.mutable._
+
+trait MedianSeq[A] extends Seq[A] {
+  def median = apply(length / 2)
+}
+
+val q = new Queue[Int] with MedianSeq[Int]
+q enqueue 1; q enqueue 2; q enqueue 3; q enqueue 4; q enqueue 5
+q median // 3
+q dequeue; q dequeue
+q median // 4
+\end{lstlisting}
+
+
+\subsection{Actors}
+
+Scala also implements an actor library similar to Erlang's. The idea behind actors is to avoid race conditions through elimination of shared data. Instead of shared data and parallel access, messages are sent to actors, which are stored in a queue and processed sequentially. When messages are sent, however, type information is lost and has to be regained on the receiving side through pattern matching. Due to pattern matching being used, actors can also react differently to different messages, and any object can be used as a message. Actors are instanciated by using the \lstinline!scala.actors.Actor.actor! method, though sometimes it can become necessary to directly subclass \lstinline!scala.actors.Actor!. Messages are sent to actors using the ! operator. For an example of actor usage, see the lift chapter \ref{NEEDED}.

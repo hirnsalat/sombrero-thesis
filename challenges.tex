@@ -1,0 +1,22 @@
+%\chapter{Project Progression}
+\section{Challenges}
+\subsection{New Technologies}
+    In sombrero we used many technologies that were completely new to us. That means that we had to learn them from scratch. About two months of our project duration were spent mostly on learning these technologies. Another challenge we encountered was the fact that some parts of Lift weren't properly documented. Lift is a very young framework and hasn't got many committers, so as we decided to use it we knew that we could have problems because of that.
+\subsection{Illness}
+    The team member Gabriel Grill got ill and wasn't able to do any kind of work for 3 to 4 weeks. That's about the duration of a whole iteration. It happened during the last iteration and because of this illness we weren't able to finish the iteration in time. So during the end of the project we really got into a hurry.
+\subsection{Collision Detection between Widgets}
+    This challenge has proven itself to be very difficult to solve. After a long search on the internet we found a JQuery plugin that was praised to give Draggable widgets the ability to detect collisions and then position the widgets on the edge of the other one. This algorithm wasn't recursive and didn't check if the dragged widget was inside the bounds of the layout. So it was very bug prone and not really of any use to us. The only solution was to implement it by ourselves, which wasn't as easy as we thought it would be. The drag event doesn't get called for every pixel the dragged widget passes. It depends on how fast you move your widget. So the faster you move the fewer events are called.
+\subsection{The perfect project management tool}
+    With Getting Real we got a really great guide on how to realize a project successfully, but the toolset to coordinate a project wasn't included in that package. So we had to find ways of our own to coordinate our work. First we tried to manage everything through Google Sites and Google Docs. At the beginning everything went smoothly, but we weren't able to keep everything well structured. Google Sites just wasn't built for project work, but rather for representation. So we switched to GitHub. This went very smoothly, because we also decided to get rid of CVS at the same time. So we used GitHub as code and project management base. After some weeks we discovered that GitHub's support for project management was too weak for our needs. We eventually switched to Pivotaltracker and are still using it today.
+\subsection{Testing of Sombrero}
+    The testing in sombrero turned out to be very difficult, because it's a web application and that's why we weren't able to think of a lot of unit tests. Whenever we wanted to test the KNX part of the application we had to go to our client to Vienna.
+\subsection{CVS vs. Git}
+    As a version management tool we decided to use CVS, because there is a ready to use server at our school. After some time of committing and refactoring we became aware of the fact that in CVS it's impossible to delete folders. The only thing you can do is emptying them.
+
+    Another thing that got on our nerves was that when you update your project all version conflicts are just written into their respective files. So eventually we had enough of CVS and switched to another tool. We chose Git, because it's easy to manage and we got rid of all the problems we had with CVS.
+\subsection{Eclipse Support}
+    Gabriel Grill used eclipse to work on sombrero and encountered different challenges while doing so. The Scala plugin was in beta state, so many features you are used to as a programmer where not fully functional, for instance code completion, debugging and even displaying compiler errors.
+
+    Until the end of the project the Git plugin had no support for merging branches.
+\subsection{Challenges Concerning Mapper}
+    We used the Lift Mapper as an API for accessing the database. During the development of sombrero we encountered some problems, because of the lack of documentation. A major problem was that a column can not be primary key and a foreign key at the same time. Also the inheritance mechanisms weren't easy to handle, because of the complex type system of Scala.

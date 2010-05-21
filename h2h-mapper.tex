@@ -1,0 +1,88 @@
+\section{Constructing a WidgetData Table}
+
+If you want to save data other than KNX addresses or RoomLinks, you need to build your own \lstinline!WidgetData! table. This consists of a class mixing in \lstinline!WidgetData! and a companion object mixing in \lstinline!WidgetMetaData!, much like you would usually use \lstinline!LongKeyedMapper! and \lstinline!LongKeyedMetaMapper! or similar. \lstinline!WidgetData! handles the foreign key to \lstinline!Widget! and allows for the use of polymorphism in the widget creation and editing forms. \lstinline!WidgetData! does not provide a primary key, so it is recommended to also mix in Lift's \lstinline!IdPK! trait. To get started quickly, just look at the \lstinline!KNXWidget! and \lstinline!RoomlinkWidget! classes. What follows now is a step-by-step example using \lstinline!KNXWidget!.
+
+\subsection{Mix in WidgetData and WidgetMetaData}
+
+For sombrero to correctly recognize your table, you need to mix in \lstinline!WidgetData! and \lstinline!WidgetMetaData! in your class and companion object respectively.
+
+\begin{lstlisting}[caption=Mixing in!,label=lst:widgetdata:mixin]
+/*
+ * Mix in WidgetData.
+ * The type parameter to WidgetData must be the type of the class itself.
+ * IdPK is also mixed in to automatically generate a primary key.
+ * Note that the primary key must be a Long.
+ */
+class KNXWidget extends WidgetData[KNXWidget] with IdPK{
+  //getSingleton must return the companion object.
+  def getSingleton = KNXWidget
+}  
+
+/*
+ * The companion object must mix in WidgetMetaData.
+ * The companion object must also inherit the WidgetData class above,
+ * and the type parameter to WidgetMetaData must be that class as well.
+ */
+object KNXWidget extends KNXWidget with WidgetMetaData[KNXWidget] {}
+\end{lstlisting}
+
+
+\subsection{Create some Fields}
+
+As a table without fields would be pretty useless, we add some to \lstinline!KNXWidget!. In this case, it's a String called groupAddress. Defining fields works the same as in every Mapper class, so consult The Difintive Guide to Lift\cite[chapter 6: The Mapper and Record Frameworks]{becker:09} for further information, they explain it better than I ever could.
+
+\begin{lstlisting}
+class KNXWidget extends WidgetData[KNXWidget] with IdPK{
+  def getSingleton = KNXWidget
+   
+  //A basic string field.
+  object groupAddress extends MappedString(this, 15) {}
+}  
+
+object KNXWidget extends KNXWidget with WidgetMetaData[KNXWidget] {}
+\end{lstlisting}
+
+
+\subsection{Create meaningful Form Generators or Validations}
+
+The create, update and delete operations are automatically available as part of the normal widget configuration methods. WidgetData creation and editing is embedded in the normal widget creation end editing forms through Mapper's \lstinline!toFrom! method and validation framework. In most cases you will need to use at least one of these to guarantee correct user input. This is needed mostly for strings, which usually either validate against a regular expression or provide the user with a drop-down box. To get a drop-down box, override \lstinline!toFrom! and use \lstinline!SHtml.select!, which automatically handles data validation. Again, refer to The Lift Book\cite[as above]{becker:09} for further information. In \lstinline!KNXWidget!'s case, there is no way to get a list of valid group addresses, so we just validate against a KNX address regular expression.
+
+\begin{lstlisting}
+class KNXWidget extends WidgetData[KNXWidget] with IdPK{
+  def getSingleton = KNXWidget
+   
+  object groupAddress extends MappedString(this, 15) {
+    //Define the validation method as needed by Lift Mapper.
+    def correctAddress(in : String) : List[FieldError] = {
+      if(Matchers.knx.findPrefixMatchOf(in) == None) {
+        List(FieldError(this, Text("incorrect KNX address format")))
+      } else {
+        List[FieldError]()
+      }
+    }
+    //Generate the List of validations.
+    override def validations = correctAddress _ :: Nil
+  }
+}  
+
+object KNXWidget extends KNXWidget with WidgetMetaData[KNXWidget] {}
+\end{lstlisting}
+
+
+\subsection{Write a Widget}
+
+Now it is time to write the client representation of your widget. This step can actually be done prior or parallel to the previous steps, but needs to be finished before the next one. You can even write more than one widget that makes use of the new \lstinline!WidgetData!.
+
+To access the the instance of your new class that belongs to a widget, use \lstinline!model.Widget.data!. The return type of this function is \lstinline!Box[WidgetData[_]]!, but it always returns a full box with the WidgetData type configured in the \lstinline!WidgetList! (see next step\ref{NEEDED}), unless something already went horribly wrong, so it's no problem if you just die somehow in the default case. As the model widget is located in the widget's data member variable, most accesses to the \lstinline!WidgetData! will look something like this:
+
+\begin{lstlisting}
+data.data match {
+  case Full(d : MyWidgetData) => d.foo
+  case _ => dieHorribleDeath //Should not happen anyways.
+}
+\end{lstlisting}
+
+
+\subsection{Insert into WidgetList}
+
+Finally, for sombrero to actually see your new widget and WidgetData, you need to insert it into the \lstinline!WidgetList!. Modifying the widget list works the same as for other custom widgets\ref{NEEDED}, except that you use your new \lstinline!WidgetData! class and companion object instead of \lstinline!KNXWidget! or \lstinline!RoomlinkWidget!. If you did everything right, you should see your new widget class in the selection box in the widget creation form now.
