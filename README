@@ -1,0 +1,3 @@
+to build,
+   pdflatex Diplomarbeit.tex
+creates Diplomarbeit.pdf
