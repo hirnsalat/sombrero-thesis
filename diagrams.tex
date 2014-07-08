@@ -34,9 +34,9 @@ The \lstinline!User! table uses Lift's \lstinline!MegaProtoUser! to save user da
 \section{Widget Structure}
 To make the widget structure in Sombrero more understandable this diagram was created. It shows the inheritance between the widget Scala classes and it describes the interface between client JavaScript widgets and server Scala classes. All Scala classes are in the placed in Lift box and all JavaScript classes in the JavaScript box.
 
-The JavaScript widgets are all JQuery UI widgets and represent the three types of widgets, which are described in chapter User Mode. These widgets are configurable. This configuration is done by the Scala widget classes. Through this configuration the JQuery UI widgets can be adopted to a special kind of device widget like lamp. It's also possible to use this create a non KNX widget like the room link widget.  
+The JavaScript widgets are all JQuery UI widgets and represent the three types of widgets, which are described in chapter User Mode. These widgets are configurable. This configuration is done by the Scala widget classes. Through this configuration the JQuery UI widgets can be adopted to a special kind of device widget like lamp. It's also possible to use this create a non KNX widget like the room link widget.
 
-During the rendering process is all JQuery UI widget code provided by the Scala classes and on page load are all initialized. The Scala classes now communicate with the JQuery UI widgets through AJAX and Comet. To ease the interface between JavaScript and Scala the class JavaScriptHelper was build. 
+During the rendering process is all JQuery UI widget code provided by the Scala classes and on page load are all initialized. The Scala classes now communicate with the JQuery UI widgets through AJAX and Comet. To ease the interface between JavaScript and Scala the class JavaScriptHelper was build.
   \begin{figure}[h]
   \centering
   \includegraphics[width=0.80\linewidth]{widgets.png}

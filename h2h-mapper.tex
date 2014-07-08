@@ -16,7 +16,7 @@ For sombrero to correctly recognize your table, you need to mix in \lstinline!Wi
 class KNXWidget extends WidgetData[KNXWidget] with IdPK{
   //getSingleton must return the companion object.
   def getSingleton = KNXWidget
-}  
+}
 
 /*
  * The companion object must mix in WidgetMetaData.
@@ -34,10 +34,10 @@ As a table without fields would be pretty useless, we add some to \lstinline!KNX
 \begin{lstlisting}
 class KNXWidget extends WidgetData[KNXWidget] with IdPK{
   def getSingleton = KNXWidget
-   
+
   //A basic string field.
   object groupAddress extends MappedString(this, 15) {}
-}  
+}
 
 object KNXWidget extends KNXWidget with WidgetMetaData[KNXWidget] {}
 \end{lstlisting}
@@ -50,7 +50,7 @@ The create, update and delete operations are automatically available as part of 
 \begin{lstlisting}
 class KNXWidget extends WidgetData[KNXWidget] with IdPK{
   def getSingleton = KNXWidget
-   
+
   object groupAddress extends MappedString(this, 15) {
     //Define the validation method as needed by Lift Mapper.
     def correctAddress(in : String) : List[FieldError] = {
@@ -63,7 +63,7 @@ class KNXWidget extends WidgetData[KNXWidget] with IdPK{
     //Generate the List of validations.
     override def validations = correctAddress _ :: Nil
   }
-}  
+}
 
 object KNXWidget extends KNXWidget with WidgetMetaData[KNXWidget] {}
 \end{lstlisting}

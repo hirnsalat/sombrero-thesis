@@ -844,4 +844,4 @@ object JavaScriptHelper {
  	).toList))
 }
 
-from org.sombrero.util.JavascriptHelper.scala 
+from org.sombrero.util.JavascriptHelper.scala
